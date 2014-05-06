@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <intent android:action="android.intent.action.VIEW"
+                    android:targetPackage="com.example"
+                    android:targetClass="com.aquamorph.PreferenceActivity2"/>
+    
+    <PreferenceCategory
+        android:summary="General"
+        android:title="General" >
+    	<CheckBoxPreference
+        	android:defaultValue="true"
+        	android:key="enablezoom"
+        	android:title="Enable Zoom"
+        	android:summary="Enables zoom for devices with smaller screens" />
+    	<CheckBoxPreference
+        	android:defaultValue="true"
+        	android:key="enablecache"
+        	android:title="Cache by Default"
+        	android:summary="Saves data usage (Update the cache to update the manual)" />
+    	<ListPreference android:key="fontSize"
+ 	 	    android:title="@string/fontsize"
+ 		    android:entries="@array/fontsize"
+		    android:entryValues="@array/fontsize"
+    		android:defaultValue="Medium"
+    		android:summary="Sets the size of the font for the manual" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:summary="About"
+        android:title="About" >
+        <PreferenceScreen
+            android:key="preferencescreen_about"
+            android:title="Version 1.0.4"
+            android:summary="Life, the Universe and Everything" />
+        <PreferenceScreen
+            android:key="preferencescreen_about"
+            android:title="Created by Christian Colglazier"
+            android:summary="FRC Team 2059 The Hitchhikers" />      
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

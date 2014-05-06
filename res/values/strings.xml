@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FRC Manual</string>
+    <string name="action_settings">Settings</string>
+    <string name="reload">Reload</string>
+    <string name="updates">Rule Updates</string>
+    <string name="updateCache">Update the Cache</string>
+    <string name="fontsize">Font Size</string>
+</resources>

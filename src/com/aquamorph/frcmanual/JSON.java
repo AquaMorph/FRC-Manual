@@ -78,6 +78,21 @@ public class JSON {
 		        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
 		        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
 		        		 html = html + children4.getString("item_content_text");
+		        		 if(children4.has("children")){
+		        			 JSONObject children5 = children4.getJSONObject("children");
+		        			 JSONArray sub3 = new JSONArray(children5.names().toString());
+		        			 List<String> reorder3 = new ArrayList<String>();
+					         for(int k=sub3.length()-1;k>=0;k--){
+					        	 reorder3.add(sub3.getString(k));
+					         }
+					         Collections.sort(reorder3);
+					         sub3 = new JSONArray(reorder3);
+		        			 for(int k=0;k<sub3.length();k++){
+		        				 JSONObject children6 = children5.getJSONObject((String) sub3.get(k));
+		        				 html = html + children6.getString("item_name");
+		        				 html = html + children6.getString("item_content_text");
+		        			 }
+		        		 }
 		        	 }
 	        	 }
 	         }

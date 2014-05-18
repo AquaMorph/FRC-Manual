@@ -56,12 +56,15 @@ public class JSON {
 	         JSONArray sub1 = new JSONArray(children.names().toString());
 	         for(int i=sub1.length()-1;i>=0;i--){
 	        	 JSONObject children2 = children.getJSONObject(Integer.toString(sub1.getInt(i)));
+	        	 html = html + "<h2>" + children2.getString("secdisp")+ " " + children2.getString("item_name") + "</h2>";
 	        	 html = html + children2.getString("item_content_text");
 	        	 if(children2.has("children")){
 		        	 JSONObject children3 = children2.getJSONObject("children");
 		        	 JSONArray sub2 = new JSONArray(children3.names().toString());
+		        	 html = html + sub2;
 		        	 for(int j=sub2.length()-1;j>=0;j--){
 		        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
+		        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
 		        		 html = html + children4.getString("item_content_text");
 		        	 }
 	        	 }

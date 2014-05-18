@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -54,15 +55,26 @@ public class JSON {
          if(head.has("children")){
 	         JSONObject children = head.getJSONObject("children");
 	         JSONArray sub1 = new JSONArray(children.names().toString());
+	         List<String> reorder1 = new ArrayList<String>();
 	         for(int i=sub1.length()-1;i>=0;i--){
+	        	 reorder1.add(sub1.getString(i));
+	         }
+	         Collections.sort(reorder1);
+	         sub1 = new JSONArray(reorder1);
+	         for(int i=0;i<sub1.length();i++){
 	        	 JSONObject children2 = children.getJSONObject(Integer.toString(sub1.getInt(i)));
 	        	 html = html + "<h2>" + children2.getString("secdisp")+ " " + children2.getString("item_name") + "</h2>";
 	        	 html = html + children2.getString("item_content_text");
 	        	 if(children2.has("children")){
 		        	 JSONObject children3 = children2.getJSONObject("children");
 		        	 JSONArray sub2 = new JSONArray(children3.names().toString());
-		        	 html = html + sub2;
-		        	 for(int j=sub2.length()-1;j>=0;j--){
+		        	 List<String> reorder2 = new ArrayList<String>();
+			         for(int j=sub2.length()-1;j>=0;j--){
+			        	 reorder2.add(sub2.getString(j));
+			         }
+			         Collections.sort(reorder2);
+			         sub2 = new JSONArray(reorder2);
+		        	 for(int j=0;j<sub2.length();j++){
 		        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
 		        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
 		        		 html = html + children4.getString("item_content_text");

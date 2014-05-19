@@ -1,21 +1,11 @@
 package com.aquamorph.frcmanual;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +18,6 @@ import android.util.Log;
 
 public class JSON {
    private String html;
-   private String version = "version";
    private String pageString = null;
    private String urlString = "http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3";
 
@@ -38,9 +27,6 @@ public class JSON {
    }
    public String getHTML(){
       return html;
-   }
-   public String getVersion(){
-      return version;
    }
 
    @SuppressLint("NewApi")
@@ -97,15 +83,6 @@ public class JSON {
 	        	 }
 	         }
          }
-         
-      
-                  
-
- 
-
-
-         JSONObject main  = reader.getJSONObject("data");
-         version = main.getString("LatestManualUpdate");
 
          parsingComplete = false;
 

@@ -176,14 +176,14 @@ class MyAdapter extends FragmentPagerAdapter {
 		if(i==3)fragment=new Robot();
 		if(i==4)fragment=new Tournament();
 		if(i==5)fragment=new Glossary();
-		if(i==6)fragment=new Rules();
+		//if(i==6)fragment=new Rules();
 		return fragment;
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 7;
+		return 6;
 	}
 	
 	public CharSequence getPageTitle(int position) {
@@ -195,7 +195,7 @@ class MyAdapter extends FragmentPagerAdapter {
 		if(position==3)return "The Robot";
 		if(position==4)return "The Tournament";
 		if(position==5)return "Glossary";
-		if(position==6)return "Rules";
+		//if(position==6)return "Rules";
 		return null;
 	}
 	

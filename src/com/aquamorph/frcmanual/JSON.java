@@ -8,13 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 public class JSON {
    private String html;
@@ -123,7 +118,8 @@ public class JSON {
        thread.start(); 		
    }
    static String convertStreamToString(java.io.InputStream is) {
-      java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+      @SuppressWarnings("resource")
+	java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
       return s.hasNext() ? s.next() : "";
    }
    

@@ -9,8 +9,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebSettings.RenderPriority;
 
+import com.aquamorph.frcmanual.CheckVersion;
+
 @SuppressLint("NewApi")
 public class Functions {
+	
+	static CheckVersion version;
 	
 	public static void javascript(WebView view, String url) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
@@ -93,9 +97,24 @@ public class Functions {
        return activeNetworkInfo != null;
    }
 
-public static void error(WebView view) {
-	view.loadData("<h1>Please check your internet connection or update the cache</h1>", "text/html", "utf-8");
-}
-   
+	public static void error(WebView view) {
+		view.loadData("<h1>Please check your internet connection or update the cache</h1>", "text/html", "utf-8");
+	}
+	
+	public static void checkUpdate(WebView view, Activity test){
+		if (!isNetworkAvailable(test)){
+			version = new CheckVersion();
+	        version.fetchJSON();
+	        while(version.parsingComplete);
+	        String latestVersion = version.getVersion();
+	        
+	        if(latestVersion!="placeholder")update();
+		}
+	}
+	
+	public static void update(){
+        
+	}
+	   
 
 }

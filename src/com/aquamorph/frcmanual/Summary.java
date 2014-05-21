@@ -31,7 +31,7 @@ public class Summary extends  Fragment  {
 		
 		final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
-		String url = "http://manual.aquamorphproductions.com/Summary.php";
+//		String url = "http://manual.aquamorphproductions.com/Summary.php";
 		
         Functions.webViewSettings(webView);
 		Functions.zoom(webView);

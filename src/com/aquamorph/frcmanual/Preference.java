@@ -18,8 +18,12 @@ public class Preference extends PreferenceActivity {
         boolean zoomenable = prefs.getBoolean("zoomenable", false);
 		boolean enablecache = prefs.getBoolean("enablecache", false);
 		String fontSize = prefs.getString("fontSize", "Large");
-        System.out.println(zoomenable);
-        System.out.println(enablecache);
-        System.out.println(fontSize);
+		String version = prefs.getString("version", null);
+		String summary = prefs.getString("summary", null);
+		String arena = prefs.getString("arena", null);
+		String game = prefs.getString("game", null);
+		String robot = prefs.getString("robot", null);
+		String tournament = prefs.getString("tournament", null);
+		String glossary = prefs.getString("glossary", null);
 	}
 }

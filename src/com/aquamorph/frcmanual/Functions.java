@@ -3,6 +3,7 @@ package com.aquamorph.frcmanual;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.webkit.WebSettings;
@@ -113,7 +114,7 @@ public class Functions {
 	}
 	
 	public static void update(){
-        
+				        
 	}
 	   
 

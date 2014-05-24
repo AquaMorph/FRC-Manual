@@ -1,7 +1,5 @@
 package com.aquamorph.frcmanual;
 
-import com.aquamorph.frcmanual.JSON;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,9 +13,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Summary extends  Fragment  {
-	
-	private JSON obj;
-	private String html = null;
 	
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {        
@@ -36,7 +31,9 @@ public class Summary extends  Fragment  {
         Functions.webViewSettings(webView);
 		Functions.zoom(webView);
 		Functions.cache(webView, getActivity());
-        
+		
+		
+		
         webView.setWebViewClient(new MyWebViewClient() {
         	@Override
         	public void onPageFinished(WebView view, String url)
@@ -51,14 +48,9 @@ public class Summary extends  Fragment  {
         		Functions.error(webView);
             }
         });
-        String page = "178";
-        obj = new JSON(page);
-        obj.fetchJSON();
 
-        while(obj.parsingComplete);
-        html =obj.getHTML();
         //webView.loadUrl(url);
-        webView.loadData(html, "text/html", "UTF-8");
+        webView.loadData(Functions.getHTML("178"), "text/html", "UTF-8");
         
         return myFragmentView;
 		

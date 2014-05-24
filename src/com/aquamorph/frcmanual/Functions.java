@@ -1,21 +1,27 @@
 package com.aquamorph.frcmanual;
 
+import java.io.FileOutputStream;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.webkit.WebSettings.RenderPriority;
-
-import com.aquamorph.frcmanual.CheckVersion;
+import android.webkit.WebView;
 
 @SuppressLint("NewApi")
-public class Functions {
+public class Functions extends PreferenceActivity {
 	
+	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	Editor editor = prefs.edit();
 	static CheckVersion version;
+	static JSON page;
 	
 	public static void javascript(WebView view, String url) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
@@ -53,30 +59,28 @@ public class Functions {
 		}
    }
 	
-   public static void fontSize(WebView view) {
+	public static void fontSize(WebView view) {
 	   if(MainActivity.getFontSize().equals("Large"))view.loadUrl("javascript:var img = document.body.style.fontSize='16px';");
 	   else if(MainActivity.getFontSize().equals("Medium"))view.loadUrl("javascript:var img = document.body.style.fontSize='';");
 	   else if(MainActivity.getFontSize().equals("Small"))view.loadUrl("javascript:var img = document.body.style.fontSize='10px';");
    }
 
-   public static void zoom(WebView view) {
+	public static void zoom(WebView view) {
        if (MainActivity.getEnableZoom()==true)view.getSettings().setBuiltInZoomControls(true);
        else view.getSettings().setBuiltInZoomControls(false);
    }
 
-   public static void cache(WebView view, Activity test) {
-      //view.getSettings().setCacheMode( WebSettings.LOAD_NO_CACHE );
-      if (!isNetworkAvailable(test))view.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY );
-      else {
-          if(MainActivity.getUpdateCache()==true)view.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
-          else {
-              if(MainActivity.getEnableCache()==true)view.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY );
-              else view.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
-          }
-      }
-                
-
-   }
+	public static void cache(WebView view, Activity test) {
+		//view.getSettings().setCacheMode( WebSettings.LOAD_NO_CACHE );
+		if (!isNetworkAvailable(test))view.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY );
+		else {
+			if(MainActivity.getUpdateCache()==true)view.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
+			else {
+				if(MainActivity.getEnableCache()==true)view.getSettings().setCacheMode( WebSettings.LOAD_CACHE_ONLY );
+				else view.getSettings().setCacheMode( WebSettings.LOAD_DEFAULT );
+			}
+		}
+	}
 
    @SuppressLint({ "SetJavaScriptEnabled", "SdCardPath" })
    @SuppressWarnings("deprecation")
@@ -102,19 +106,44 @@ public class Functions {
 		view.loadData("<h1>Please check your internet connection or update the cache</h1>", "text/html", "utf-8");
 	}
 	
-	public static void checkUpdate(WebView view, Activity test){
-		if (!isNetworkAvailable(test)){
+	public void checkUpdate(){
 			version = new CheckVersion();
 	        version.fetchJSON();
 	        while(version.parsingComplete);
 	        String latestVersion = version.getVersion();
-	        
-	        if(latestVersion!="placeholder")update();
-		}
+	        if(latestVersion!=prefs.getString("version", null))update();
 	}
 	
-	public static void update(){
-				        
+	public void update(){
+		//Update Version Number
+		version = new CheckVersion();
+        version.fetchJSON();
+        while(version.parsingComplete);
+        String latestVersion = version.getVersion();
+        editor.putString("version", latestVersion);
+        editor.commit();
+        //Summary Page
+        saveFile("summary",getHTML("178"));
+	}
+	
+	//Parses HTML code for a page
+	public static String getHTML(String page){
+		JSON html = new JSON(page);
+		html.fetchJSON();
+        while(html.parsingComplete);
+        return html.getHTML();
+	}
+	
+	//Saves string to a file
+	public void saveFile(String name, String data){
+		FileOutputStream outputStream;
+        try {
+          outputStream = openFileOutput(name, Context.MODE_PRIVATE);
+          outputStream.write(data.getBytes());
+          outputStream.close();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
 	}
 	   
 

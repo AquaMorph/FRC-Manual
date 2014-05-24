@@ -15,9 +15,9 @@ public class Preference extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.preference);
 		
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean zoomenable = prefs.getBoolean("zoomenable", false);
-		boolean enablecache = prefs.getBoolean("enablecache", false);
-		String fontSize = prefs.getString("fontSize", "Large");
+//        boolean zoomenable = prefs.getBoolean("zoomenable", false);
+//		boolean enablecache = prefs.getBoolean("enablecache", false);
+//		String fontSize = prefs.getString("fontSize", "Large");
 		String version = prefs.getString("version", null);
 		String summary = prefs.getString("summary", null);
 		String arena = prefs.getString("arena", null);

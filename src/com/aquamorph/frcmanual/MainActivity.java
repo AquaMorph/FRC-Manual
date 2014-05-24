@@ -106,7 +106,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	}
 	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,String key) {
-		// TODO Auto-generated method stub
 		loadPreferences();
 		needReset = true;
 	}

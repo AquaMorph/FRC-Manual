@@ -124,11 +124,11 @@ public class Functions extends PreferenceActivity {
         editor.commit();
         //Summary Page
         saveFile("summary",getHTML("178"),ctx);
-        saveFile("summary",getHTML("179"),ctx);
-        saveFile("summary",getHTML("180"),ctx);
-        saveFile("summary",getHTML("181"),ctx);
-        saveFile("summary",getHTML("182"),ctx);
-        saveFile("summary",getHTML("183"),ctx);
+        saveFile("arena",getHTML("179"),ctx);
+        saveFile("game",getHTML("180"),ctx);
+        saveFile("robot",getHTML("181"),ctx);
+        saveFile("tournament",getHTML("182"),ctx);
+        saveFile("glossary",getHTML("183"),ctx);
 	}
 	
 	//Parses HTML code for a page

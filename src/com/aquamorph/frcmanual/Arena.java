@@ -25,7 +25,6 @@ public class Arena extends Fragment {
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
-		String url = "http://manual.aquamorphproductions.com/Arena.php";
 		
 		Functions.webViewSettings(webView);
 		Functions.zoom(webView);
@@ -41,7 +40,7 @@ public class Arena extends Fragment {
             }
         });
         
-        webView.loadUrl(url);
+        webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/arena");
         
         return myFragmentView;
 		

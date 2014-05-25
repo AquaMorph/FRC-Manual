@@ -1,6 +1,5 @@
 package com.aquamorph.frcmanual;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,20 +18,16 @@ public class Summary extends  Fragment  {
         super.onActivityCreated(savedInstanceState);
     }
 	
-	@SuppressLint("SetJavaScriptEnabled")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
 		final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
-//		String url = "http://manual.aquamorphproductions.com/Summary.php";
 		
         Functions.webViewSettings(webView);
 		Functions.zoom(webView);
 		Functions.cache(webView, getActivity());
-		
-		
 		
         webView.setWebViewClient(new MyWebViewClient() {
         	@Override
@@ -49,8 +44,7 @@ public class Summary extends  Fragment  {
             }
         });
 
-        //webView.loadUrl(url);
-        webView.loadData(Functions.getHTML("178"), "text/html", "UTF-8");
+        webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/summary");
         
         return myFragmentView;
 		

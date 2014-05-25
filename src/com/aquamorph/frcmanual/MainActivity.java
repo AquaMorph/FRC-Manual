@@ -63,8 +63,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main, menu);
 	    return super.onCreateOptionsMenu(menu);
-	    
-	    
 	}
 	
 	@Override
@@ -76,13 +74,12 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
         viewPager.setOffscreenPageLimit(6);
 		FragmentManager fragmentManager=getSupportFragmentManager();
 		viewPager.setAdapter(new MyAdapter(fragmentManager));
-		
+		Functions.checkUpdate(getApplicationContext(), this);
 		loadPreferences();
 	}
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	        //Window w = getWindow(); // in Activity's onCreate() for instance
@@ -152,9 +149,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
     		reload();
     	}
 	}
-
-
-
 }
 
 class MyAdapter extends FragmentPagerAdapter {
@@ -162,8 +156,6 @@ class MyAdapter extends FragmentPagerAdapter {
 
 	public MyAdapter(FragmentManager fm) {
 		super(fm);
-		
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -181,7 +173,6 @@ class MyAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return 6;
 	}
 	
@@ -197,7 +188,4 @@ class MyAdapter extends FragmentPagerAdapter {
 		//if(position==6)return "Rules";
 		return null;
 	}
-	
-
-	
 }

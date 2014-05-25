@@ -1,6 +1,8 @@
 package com.aquamorph.frcmanual;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,8 +20,8 @@ import android.webkit.WebView;
 @SuppressLint("NewApi")
 public class Functions extends PreferenceActivity {
 	
-	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-	Editor editor = prefs.edit();
+	
+	
 	static CheckVersion version;
 	static JSON page;
 	
@@ -106,44 +108,68 @@ public class Functions extends PreferenceActivity {
 		view.loadData("<h1>Please check your internet connection or update the cache</h1>", "text/html", "utf-8");
 	}
 	
-	public void checkUpdate(){
-			version = new CheckVersion();
-	        version.fetchJSON();
-	        while(version.parsingComplete);
-	        String latestVersion = version.getVersion();
-	        if(latestVersion!=prefs.getString("version", null))update();
+	public static void checkUpdate(Context ctx, Activity act){
+		if(isNetworkAvailable(act)==true){
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+			String version = getVersion();
+	        if(version!=prefs.getString("version", null))update(ctx);
+		}
 	}
 	
-	public void update(){
+	public static void update(Context ctx){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		Editor editor = prefs.edit();
 		//Update Version Number
-		version = new CheckVersion();
-        version.fetchJSON();
-        while(version.parsingComplete);
-        String latestVersion = version.getVersion();
-        editor.putString("version", latestVersion);
+        editor.putString("version", getVersion());
         editor.commit();
         //Summary Page
-        saveFile("summary",getHTML("178"));
+        saveFile("summary",getHTML("178"),ctx);
+        saveFile("summary",getHTML("179"),ctx);
+        saveFile("summary",getHTML("180"),ctx);
+        saveFile("summary",getHTML("181"),ctx);
+        saveFile("summary",getHTML("182"),ctx);
+        saveFile("summary",getHTML("183"),ctx);
 	}
 	
 	//Parses HTML code for a page
 	public static String getHTML(String page){
 		JSON html = new JSON(page);
 		html.fetchJSON();
-        while(html.parsingComplete);
+        while(html.parsingComplete){
+        	try{
+        	      Thread.sleep(100);
+        	   } catch (InterruptedException e){
+        	      e.printStackTrace();
+        	   }
+        	   continue;
+        }
         return html.getHTML();
 	}
 	
 	//Saves string to a file
-	public void saveFile(String name, String data){
+	public static void saveFile(String name, String data, Context ctx){
 		FileOutputStream outputStream;
         try {
-          outputStream = openFileOutput(name, Context.MODE_PRIVATE);
+          outputStream = ctx.openFileOutput(name, Context.MODE_PRIVATE);
           outputStream.write(data.getBytes());
           outputStream.close();
         } catch (Exception e) {
           e.printStackTrace();
         }
+	}
+	
+	public static String getVersion(){
+		version = new CheckVersion();
+        version.fetchJSON();
+        while(version.parsingComplete){
+        	try{
+        	      Thread.sleep(100);
+        	   } catch (InterruptedException e){
+        	      e.printStackTrace();
+        	   }
+        	   continue;
+        }
+        return version.getVersion();
 	}
 	   
 

@@ -7,6 +7,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 public class CheckVersion {
    private String version = null;
@@ -47,6 +48,7 @@ public class CheckVersion {
             conn.setConnectTimeout(15000 /* milliseconds */);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
+            Log.i("ff", "fff");
             // Starts the query
             conn.connect();
          InputStream stream = conn.getInputStream();

@@ -1,8 +1,6 @@
 package com.aquamorph.frcmanual;
 
-import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
@@ -109,10 +108,10 @@ public class Functions extends PreferenceActivity {
 	}
 	
 	public static void checkUpdate(Context ctx, Activity act){
+		Log.i("test","Value: ");
 		if(isNetworkAvailable(act)==true){
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-			String version = getVersion();
-	        if(version!=prefs.getString("version", null))update(ctx);
+	        if(!getVersion().equals(prefs.getString("version", null)))update(ctx);
 		}
 	}
 	

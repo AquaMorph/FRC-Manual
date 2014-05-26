@@ -28,10 +28,11 @@ public class JSON {
    public void readAndParseJSON(String in) {
       try {
          JSONObject reader = new JSONObject(in);
-
+         
+         html = "<html><body>";
 
          JSONObject head = reader.getJSONObject("data").getJSONObject("SubChapter").getJSONObject("3").getJSONObject("children").getJSONObject(pageString);
-         html = head.getString("item_content_text");
+         html = html + head.getString("item_content_text");
          
          if(head.has("children")){
 	         JSONObject children = head.getJSONObject("children");
@@ -78,6 +79,8 @@ public class JSON {
 	        	 }
 	         }
          }
+         
+         html = html + "</body></html>";
 
          parsingComplete = false;
 

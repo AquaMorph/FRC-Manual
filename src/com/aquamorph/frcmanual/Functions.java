@@ -15,6 +15,7 @@ import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class Functions extends PreferenceActivity {
@@ -110,6 +111,8 @@ public class Functions extends PreferenceActivity {
 	public static void checkUpdate(Context ctx, Activity act){
 		Log.i("test","Value: ");
 		if(isNetworkAvailable(act)==true){
+			Toast toast = Toast.makeText(ctx, "Checking for update", Toast.LENGTH_SHORT);
+			toast.show();
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 	        if(!getVersion().equals(prefs.getString("version", null)))update(ctx);
 		}

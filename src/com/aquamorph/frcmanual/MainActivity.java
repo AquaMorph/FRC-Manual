@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements OnSharedPreferenceChangeListener {
 	
@@ -74,7 +75,9 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
         viewPager.setOffscreenPageLimit(6);
 		FragmentManager fragmentManager=getSupportFragmentManager();
 		viewPager.setAdapter(new MyAdapter(fragmentManager));
-		Functions.checkUpdate(getApplicationContext(), this);
+		
+		
+		//Functions.checkUpdate(getApplicationContext(), this);
 		loadPreferences();
 	}
 	
@@ -82,8 +85,8 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	protected void onResume() {
 		super.onResume();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-	        //Window w = getWindow(); // in Activity's onCreate() for instance
-	        //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//	        Window w = getWindow(); // in Activity's onCreate() for instance
+//	        w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 	    }
 		checkForReset();
 	}
@@ -188,4 +191,5 @@ class MyAdapter extends FragmentPagerAdapter {
 		//if(position==6)return "Rules";
 		return null;
 	}
+	
 }

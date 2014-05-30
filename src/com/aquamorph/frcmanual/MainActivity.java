@@ -155,7 +155,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 }
 
 class MyAdapter extends FragmentPagerAdapter {
-	
 
 	public MyAdapter(FragmentManager fm) {
 		super(fm);
@@ -191,5 +190,4 @@ class MyAdapter extends FragmentPagerAdapter {
 		//if(position==6)return "Rules";
 		return null;
 	}
-	
 }

@@ -91,6 +91,10 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 		checkForReset();
 	}
 	
+	protected void onLoadFinished(){
+		//Functions.checkUpdate(getApplicationContext(), this);
+	}
+	
 	
 	//Preferences
 	public static Boolean enablezoom = false;

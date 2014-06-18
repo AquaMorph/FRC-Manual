@@ -22,7 +22,7 @@ public class Summary extends  Fragment  {
 		
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
-		final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
+		//final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
 		
         Functions.webViewSettings(webView);
@@ -31,14 +31,12 @@ public class Summary extends  Fragment  {
 		
         webView.setWebViewClient(new MyWebViewClient() {
         	@Override
-        	public void onPageFinished(WebView view, String url)
-        	{
-        		pd.dismiss();
+        	public void onPageFinished(WebView view, String url) {
+        		//pd.dismiss();
+        		Functions.javascript(webView, url);
+        		Functions.fontSize(webView);
         	}
-        	public void onLoadResource(WebView webView, String url) {
-    			Functions.javascript(webView, url);
-    			Functions.fontSize(webView);
-    		}
+        	
         	public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         		Functions.error(webView);
             }

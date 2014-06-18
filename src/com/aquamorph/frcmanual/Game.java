@@ -1,6 +1,7 @@
 package com.aquamorph.frcmanual;
 
 import com.aquamorph.frcmanual.R;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,7 +31,7 @@ public class Game extends Fragment {
 		Functions.cache(webView, getActivity());
         
 		webView.setWebViewClient(new MyWebViewClient() {
-        	public void onLoadResource(WebView webView, String url) {
+			public void onPageFinished(WebView view, String url) {
     			Functions.javascript(webView, url);
     			Functions.fontSize(webView);
     		}

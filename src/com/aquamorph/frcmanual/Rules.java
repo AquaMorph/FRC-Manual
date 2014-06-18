@@ -1,7 +1,6 @@
 package com.aquamorph.frcmanual;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ public class Rules extends  Fragment  {
 		
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
-		final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
 		String url = "http://manual.aquamorphproductions.com/Rules.php";
 		
@@ -35,11 +33,7 @@ public class Rules extends  Fragment  {
         
         webView.setWebViewClient(new MyWebViewClient() {
         	@Override
-        	public void onPageFinished(WebView view, String url)
-        	{
-        		pd.dismiss();
-        	}
-        	public void onLoadResource(WebView webView, String url) {
+        	public void onPageFinished(WebView webView, String url) {
     			Functions.javascript(webView, url);
     			Functions.fontSize(webView);
     		}

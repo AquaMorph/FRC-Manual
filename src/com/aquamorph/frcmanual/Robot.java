@@ -30,7 +30,7 @@ public class Robot extends Fragment {
 		Functions.cache(webView, getActivity());
         
 		webView.setWebViewClient(new MyWebViewClient() {
-        	public void onLoadResource(WebView webView, String url) {
+        	public void onPageFinished(WebView webView, String url) {
     			Functions.javascript(webView, url);
     			Functions.fontSize(webView);
     		}

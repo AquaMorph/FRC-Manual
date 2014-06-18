@@ -20,29 +20,17 @@ import android.widget.Toast;
 @SuppressLint("NewApi")
 public class Functions extends PreferenceActivity {
 	
-	
-	
 	static CheckVersion version;
 	static JSON page;
 	
 	public static void javascript(WebView view, String url) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
 			//KitKat and above
-			view.evaluateJavascript("document.getElementById('header_container').style.display='none';",null);
-	        view.evaluateJavascript("document.getElementById('footer').style.display='none';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('ChapterTools RightPos')[0].style.visibility='hidden';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('pdfbutton')[0].style.visibility='hidden';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('showhide_button1')[0].style.visibility='hidden';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('colmid')[0].style.right='100%';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('colleft')[0].style.right='initial';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('col1')[0].style.width='98%';",null);
-	        view.evaluateJavascript("var con = document.getElementsByClassName('col1')[0].style.top='-60px'; ", null);
-	        view.evaluateJavascript("document.getElementsByClassName('colmask threecol')[0].style.right='2%';",null);
-	        view.evaluateJavascript("document.getElementsByClassName('colmask threecol')[0].style.width='';",null);
 	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i)img[i].style.maxWidth='100%';",null);
 	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';} ",null);
-	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.width='';} ",null);
-	        view.evaluateJavascript("document.getElementsByTagName('body')[0].style.zoom = '200%'; ", null);
+	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.fontSize='10px';} ",null);
+	        view.evaluateJavascript("document.body.style.zoom = '200%'; ", null);
+	        //view.evaluateJavascript("document.body.style.background = 'blue'; ", null);
 		} else{
 		    // Jellybean and below
 			view.loadUrl("javascript:var con = document.getElementById('header_container').style.display='none';"
@@ -114,7 +102,8 @@ public class Functions extends PreferenceActivity {
 			Toast toast = Toast.makeText(ctx, "Checking for update", Toast.LENGTH_SHORT);
 			toast.show();
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-	        if(!getVersion().equals(prefs.getString("version", null)))update(ctx);
+	        if(!getVersion().equals(//"1"))update(ctx);
+	        		prefs.getString("version", null)))update(ctx);
 		}
 	}
 	

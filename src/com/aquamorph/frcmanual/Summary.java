@@ -1,6 +1,5 @@
 package com.aquamorph.frcmanual;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ public class Summary extends  Fragment  {
 		
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
-		//final ProgressDialog pd = ProgressDialog.show(getActivity(), "FRC Manual", "Loading");
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
 		
         Functions.webViewSettings(webView);

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -50,9 +51,9 @@ public class Functions extends PreferenceActivity {
    }
 	
 	public static void fontSize(WebView view) {
-	   if(MainActivity.getFontSize().equals("Large"))view.loadUrl("javascript:var img = document.body.style.fontSize='16px';");
-	   else if(MainActivity.getFontSize().equals("Medium"))view.loadUrl("javascript:var img = document.body.style.fontSize='';");
-	   else if(MainActivity.getFontSize().equals("Small"))view.loadUrl("javascript:var img = document.body.style.fontSize='10px';");
+	   if(MainActivity.getFontSize().equals("Large"))view.loadUrl("javascript:var img = document.body.style.fontSize='20px';");
+	   else if(MainActivity.getFontSize().equals("Medium"))view.loadUrl("javascript:var img = document.body.style.fontSize='16px';");
+	   else if(MainActivity.getFontSize().equals("Small"))view.loadUrl("javascript:var img = document.body.style.fontSize='12px';");
    }
 
 	public static void zoom(WebView view) {

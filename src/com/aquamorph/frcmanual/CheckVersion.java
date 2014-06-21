@@ -44,8 +44,8 @@ public class CheckVersion {
          try {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setReadTimeout(1000 /* milliseconds */);
+            conn.setConnectTimeout(1500 /* milliseconds */);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             Log.i("ff", "fff");

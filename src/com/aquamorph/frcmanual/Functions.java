@@ -20,8 +20,9 @@ public class Functions extends PreferenceActivity {
 			//KitKat and above
 	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i)img[i].style.maxWidth='100%';",null);
 	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';} ",null);
-	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.fontSize='10px';} ",null);
-	        view.evaluateJavascript("document.body.style.zoom = '200%'; ", null);
+	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.width='';} ",null);
+	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.overflow='hidden';} ",null);
+//	        view.evaluateJavascript("document.body.style.zoom = '200%'; ", null);
 	        //view.evaluateJavascript("document.body.style.background = 'blue'; ", null);
 		} else{
 		    // Jellybean and below
@@ -65,7 +66,9 @@ public class Functions extends PreferenceActivity {
        view.getSettings().setUseWideViewPort(true);
        view.getSettings().setRenderPriority(RenderPriority.HIGH);
        view.getSettings().setAllowFileAccess(true);
-       view.getSettings().setAppCacheEnabled(false);      
+       view.getSettings().setAppCacheEnabled(false);  
+//       view.getSettings().setLoadWithOverviewMode(false);
+       view.getSettings().setUseWideViewPort(false);
    }
 
    public static boolean isNetworkAvailable(Activity test) {

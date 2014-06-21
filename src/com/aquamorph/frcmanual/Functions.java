@@ -25,17 +25,7 @@ public class Functions extends PreferenceActivity {
 	        //view.evaluateJavascript("document.body.style.background = 'blue'; ", null);
 		} else{
 		    // Jellybean and below
-			view.loadUrl("javascript:var con = document.getElementById('header_container').style.display='none';"
-			        + "var con = document.getElementById('footer').style.display='none';"
-			        + "var con = document.getElementsByClassName('ChapterTools RightPos')[0].style.visibility='hidden';"
-			        + "var con = document.getElementsByClassName('showhide_button1')[0].style.visibility='hidden';"
-			        + "var con = document.getElementsByClassName('colmid')[0].style.right='100%';"
-			        + "var con = document.getElementsByClassName('colleft')[0].style.right='initial';"
-			        + "var con = document.getElementsByClassName('col1')[0].style.width='98%';"
-			        + "var con = document.getElementsByClassName('col1')[0].style.top='-50px'; "
-			        + "var con = document.getElementsByClassName('colmask threecol')[0].style.right='2%';"
-			        + "var con = document.getElementsByClassName('colmask threecol')[0].style.width='';"
-			        + "var con = document.getElementsByTagName('img'); for (var i = 0; i < con.length; ++i)con[i].style.maxWidth='100%';"
+			view.loadUrl("javascript:var con = document.getElementsByTagName('img'); for (var i = 0; i < con.length; ++i)con[i].style.maxWidth='100%';"
 			        + "var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';} "
 			        + "var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[0].style.width='';} ");
 		}

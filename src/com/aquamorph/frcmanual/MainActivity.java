@@ -86,7 +86,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		// use a number higher than half your fragments.
         viewPager.setOffscreenPageLimit(6);
 		FragmentManager fragmentManager=getSupportFragmentManager();
 		viewPager.setAdapter(new MyAdapter(fragmentManager));
@@ -213,11 +212,8 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 			        }
 					return true;
 				}
-				
-				//------------------>>
-				
-			} catch (ParseException e1) {
-				e1.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (JSONException e) {
@@ -226,13 +222,7 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 			return false;
 		}
 		
-		protected void onProgressUpdate(){
-			if(updating == true)Toast.makeText(getApplicationContext(), "Updating", Toast.LENGTH_LONG).show();
-		}
-		
 		protected void onPostExecute(Boolean result) {
-//			dialog.cancel();
-//			adapter.notifyDataSetChanged();
 			if(result == false)Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 			if(updating == true){
 				Toast.makeText(getApplicationContext(), "Reloading update", Toast.LENGTH_SHORT).show();
@@ -244,7 +234,7 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 	
 	
 	public String html(JSONObject reader, String page) throws JSONException{
-		String html = "<html><body><h1>test 6</h1>";
+		String html = "<html><body>";
 
         JSONObject head = reader.getJSONObject("data").getJSONObject("SubChapter").getJSONObject("3").getJSONObject("children").getJSONObject(page);
         html = html + head.getString("item_content_text");
@@ -258,40 +248,79 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 	         }
 	         Collections.sort(reorder1);
 	         sub1 = new JSONArray(reorder1);
-	         for(int i=0;i<sub1.length();i++){
-	        	 JSONObject children2 = children.getJSONObject(Integer.toString(sub1.getInt(i)));
-	        	 html = html + "<h2>" + children2.getString("secdisp")+ " " + children2.getString("item_name") + "</h2>";
-	        	 html = html + children2.getString("item_content_text");
-	        	 if(children2.has("children")){
-		        	 JSONObject children3 = children2.getJSONObject("children");
-		        	 JSONArray sub2 = new JSONArray(children3.names().toString());
-		        	 List<String> reorder2 = new ArrayList<String>();
-			         for(int j=sub2.length()-1;j>=0;j--){
-			        	 reorder2.add(sub2.getString(j));
-			         }
-			         Collections.sort(reorder2);
-			         sub2 = new JSONArray(reorder2);
-		        	 for(int j=0;j<sub2.length();j++){
-		        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
-		        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
-		        		 html = html + children4.getString("item_content_text");
-		        		 if(children4.has("children")){
-		        			 JSONObject children5 = children4.getJSONObject("children");
-		        			 JSONArray sub3 = new JSONArray(children5.names().toString());
-		        			 List<String> reorder3 = new ArrayList<String>();
-					         for(int k=sub3.length()-1;k>=0;k--){
-					        	 reorder3.add(sub3.getString(k));
-					         }
-					         Collections.sort(reorder3);
-					         sub3 = new JSONArray(reorder3);
-		        			 for(int k=0;k<sub3.length();k++){
-		        				 JSONObject children6 = children5.getJSONObject((String) sub3.get(k));
-		        				 html = html + children6.getString("item_name");
-		        				 html = html + children6.getString("item_content_text");
-		        			 }
-		        		 }
+	         if(page.equals("183")){
+		         for(int i=sub1.length()-1;i>=0;i--){
+		        	 JSONObject children2 = children.getJSONObject(Integer.toString(sub1.getInt(i)));
+		        	 html = html + "<h2>" + children2.getString("secdisp")+ " " + children2.getString("item_name") + "</h2>";
+		        	 html = html + children2.getString("item_content_text");
+		        	 if(children2.has("children")){
+			        	 JSONObject children3 = children2.getJSONObject("children");
+			        	 JSONArray sub2 = new JSONArray(children3.names().toString());
+			        	 List<String> reorder2 = new ArrayList<String>();
+				         for(int j=sub2.length()-1;j>=0;j--){
+				        	 reorder2.add(sub2.getString(j));
+				         }
+				         Collections.sort(reorder2);
+				         sub2 = new JSONArray(reorder2);
+			        	 for(int j=0;j<sub2.length();j++){
+			        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
+			        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
+			        		 html = html + children4.getString("item_content_text");
+			        		 if(children4.has("children")){
+			        			 JSONObject children5 = children4.getJSONObject("children");
+			        			 JSONArray sub3 = new JSONArray(children5.names().toString());
+			        			 List<String> reorder3 = new ArrayList<String>();
+						         for(int k=sub3.length()-1;k>=0;k--){
+						        	 reorder3.add(sub3.getString(k));
+						         }
+						         Collections.sort(reorder3);
+						         sub3 = new JSONArray(reorder3);
+			        			 for(int k=0;k<sub3.length();k++){
+			        				 JSONObject children6 = children5.getJSONObject((String) sub3.get(k));
+			        				 html = html + children6.getString("item_name");
+			        				 html = html + children6.getString("item_content_text");
+			        			 }
+			        		 }
+			        	 }
 		        	 }
-	        	 }
+		         }
+	         }
+	         else {
+	        	 for(int i=0;i<sub1.length();i++){
+		        	 JSONObject children2 = children.getJSONObject(Integer.toString(sub1.getInt(i)));
+		        	 html = html + "<h2>" + children2.getString("secdisp")+ " " + children2.getString("item_name") + "</h2>";
+		        	 html = html + children2.getString("item_content_text");
+		        	 if(children2.has("children")){
+			        	 JSONObject children3 = children2.getJSONObject("children");
+			        	 JSONArray sub2 = new JSONArray(children3.names().toString());
+			        	 List<String> reorder2 = new ArrayList<String>();
+				         for(int j=sub2.length()-1;j>=0;j--){
+				        	 reorder2.add(sub2.getString(j));
+				         }
+				         Collections.sort(reorder2);
+				         sub2 = new JSONArray(reorder2);
+			        	 for(int j=0;j<sub2.length();j++){
+			        		 JSONObject children4 = children3.getJSONObject((String) sub2.get(j));
+			        		 html = html + "<h3>" + children4.getString("secdisp")+ " " + children4.getString("item_name") + "</h3>";
+			        		 html = html + children4.getString("item_content_text");
+			        		 if(children4.has("children")){
+			        			 JSONObject children5 = children4.getJSONObject("children");
+			        			 JSONArray sub3 = new JSONArray(children5.names().toString());
+			        			 List<String> reorder3 = new ArrayList<String>();
+						         for(int k=sub3.length()-1;k>=0;k--){
+						        	 reorder3.add(sub3.getString(k));
+						         }
+						         Collections.sort(reorder3);
+						         sub3 = new JSONArray(reorder3);
+			        			 for(int k=0;k<sub3.length();k++){
+			        				 JSONObject children6 = children5.getJSONObject((String) sub3.get(k));
+			        				 html = html + children6.getString("item_name");
+			        				 html = html + children6.getString("item_content_text");
+			        			 }
+			        		 }
+			        	 }
+		        	 }
+		         }
 	         }
         }
         html = html + "</body></html>";
@@ -314,7 +343,6 @@ class MyAdapter extends FragmentPagerAdapter {
 		if(i==3)fragment=new Page("robot");
 		if(i==4)fragment=new Page("tournament");
 		if(i==5)fragment=new Page("glossary");
-		//if(i==6)fragment=new Rules();
 		return fragment;
 	}
 
@@ -332,7 +360,6 @@ class MyAdapter extends FragmentPagerAdapter {
 		if(position==3)return "The Robot";
 		if(position==4)return "The Tournament";
 		if(position==5)return "Glossary";
-		//if(position==6)return "Rules";
 		return null;
 	}
 	

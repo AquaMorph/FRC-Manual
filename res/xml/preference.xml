@@ -13,11 +13,6 @@
         	android:key="enablezoom"
         	android:title="Enable Zoom"
         	android:summary="Enables zoom for devices with smaller screens" />
-    	<CheckBoxPreference
-        	android:defaultValue="true"
-        	android:key="enablecache"
-        	android:title="Cache by Default"
-        	android:summary="Saves data usage (Update the cache to update the manual)" />
     	<ListPreference android:key="fontSize"
  	 	    android:title="@string/fontsize"
  		    android:entries="@array/fontsize"

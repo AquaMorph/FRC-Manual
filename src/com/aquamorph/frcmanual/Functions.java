@@ -18,17 +18,12 @@ public class Functions extends PreferenceActivity {
 	public static void javascript(WebView view, String url) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
 			//KitKat and above
-	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i)img[i].style.maxWidth='100%';",null);
-	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';} ",null);
-	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.width='';} ",null);
-	        view.evaluateJavascript("var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[i].style.overflow='hidden';} ",null);
-//	        view.evaluateJavascript("document.body.style.zoom = '200%'; ", null);
-	        //view.evaluateJavascript("document.body.style.background = 'blue'; ", null);
+	        view.evaluateJavascript("var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i){img[i].style.maxWidth='100%';img[i].style.height='';}",null);
+	        view.evaluateJavascript("var tbl = document.getElementsByTagName('table'); for (var i = 0; i < tbl.length; ++i) {tbl[i].style.width='';tbl[i].style.fontSize='.5em';}",null);
 		} else{
 		    // Jellybean and below
-			view.loadUrl("javascript:var con = document.getElementsByTagName('img'); for (var i = 0; i < con.length; ++i)con[i].style.maxWidth='100%';"
-			        + "var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';} "
-			        + "var img = document.getElementsByTagName('table'); for (var i = 0; i < img.length; ++i) {img[0].style.width='';} ");
+			view.loadUrl("javascript:var img = document.getElementsByTagName('img'); for (var i = 0; i < img.length; ++i) {img[i].style.height='';img[i].style.maxWidth='100%';} "
+			        + "var tbl = document.getElementsByTagName('table'); for (var i = 0; i < tbl.length; ++i) {tbl[i].style.width='';tbl[i].style.fontSize='.5em';}");
 		}
    }
 	

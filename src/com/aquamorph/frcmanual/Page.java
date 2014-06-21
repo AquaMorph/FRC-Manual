@@ -25,6 +25,7 @@ public class Page extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -46,6 +47,7 @@ public class Page extends Fragment {
 				Functions.fontSize(webView);
 			}
 
+			@Override
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				Functions.error(webView);

@@ -1,0 +1,23 @@
+1.1.0 So Long, and Thanks for All the Fish
+Project is now open source
+Added automatic updating
+Faster loader times
+
+1.0.4 Life, the Universe and Everything
+Added Adjustable Font Size Preference
+Added Rules Tab
+Changed Android Target to API 19
+Improved Connection Error Message
+
+1.0.3
+Bug Fixes for Kit Kat
+
+1.0.2 Manual at the End of the Universe
+Bug Fixes
+Performance Improvements
+Refresh Cache Button 
+
+1.0.1 Mostly Harmless
+Added Offline Ability
+Added Zooming Option
+New App Icon 

@@ -14,9 +14,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.net.ParseException;
@@ -63,10 +65,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 		finish();
 		startActivity(getIntent());
 	}
-	public void openUpdates() {
-		Intent intent = new Intent(this, Updates.class);
-		startActivity(intent);
-	}
 	public void openSettings() {
 		Intent intent = new Intent(this, Preference.class);
 		startActivity(intent);
@@ -93,7 +91,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 		FragmentManager fragmentManager=getSupportFragmentManager();
 		viewPager.setAdapter(new MyAdapter(fragmentManager));
 		
-//		Functions.checkUpdate(getApplicationContext(), this);
 		new JSONAsyncTask().execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
 		loadPreferences();
 	}
@@ -107,11 +104,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	    }
 		checkForReset();
 	}
-	
-	protected void onLoadFinished(){
-		//Functions.checkUpdate(getApplicationContext(), this);
-	}
-	
 	
 	//Preferences
 	public static Boolean enablezoom = false;
@@ -174,17 +166,15 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	}
 	
 class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
+	
+	Boolean updating = false;
 		
 		ProgressDialog dialog;
 		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = new ProgressDialog(MainActivity.this);
-			dialog.setMessage("Checking for update");
-			dialog.setTitle("FRC Manial");
-			dialog.show();
-			dialog.setCancelable(false);
+			Toast.makeText(getApplicationContext(), "Checking for update", Toast.LENGTH_SHORT).show();			
 		}
 		
 		@Override
@@ -197,28 +187,30 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 				int status = response.getStatusLine().getStatusCode();
 
 				if (status == 200) {
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 					HttpEntity entity = response.getEntity();
 					String data = EntityUtils.toString(entity);
 					String version = null;
-					
 					JSONObject reader = new JSONObject(data);
-
 					JSONObject main  = reader.getJSONObject("data");
 					if(main.has("LatestManualUpdate")){
 						version = main.getString("LatestManualUpdate");
 					}
-					
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			        if(!version.equals("1")){
-//			        		prefs.getString("version", null))){
+			        if(!version.equals(//"1")){
+			        		prefs.getString("version", null))){
+			        	updating = true;
+			    		//Update Version Number
+			        	Editor editor = prefs.edit();
+			            editor.putString("version", version);
+			            editor.commit();
+			            //Update HTML
 			        	Functions.saveFile("summary", html(reader,"178"), getApplicationContext());
 				        Functions.saveFile("arena", html(reader,"179"), getApplicationContext());
 				        Functions.saveFile("game", html(reader,"180"), getApplicationContext());
 				        Functions.saveFile("robot", html(reader,"181"), getApplicationContext());
-				        Functions.saveFile("tournament", html(reader,"181"), getApplicationContext());
+				        Functions.saveFile("tournament", html(reader,"182"), getApplicationContext());
 				        Functions.saveFile("glossary", html(reader,"183"), getApplicationContext());
 			        }
-			        
 					return true;
 				}
 				
@@ -234,18 +226,25 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 			return false;
 		}
 		
+		protected void onProgressUpdate(){
+			if(updating == true)Toast.makeText(getApplicationContext(), "Updating", Toast.LENGTH_LONG).show();
+		}
+		
 		protected void onPostExecute(Boolean result) {
-			dialog.cancel();
+//			dialog.cancel();
 //			adapter.notifyDataSetChanged();
-			if(result == false)
-				Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+			if(result == false)Toast.makeText(getApplicationContext(), "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+			if(updating == true){
+				Toast.makeText(getApplicationContext(), "Reloading update", Toast.LENGTH_SHORT).show();
+				reload();
+			}
 
 		}
 	}
 	
 	
 	public String html(JSONObject reader, String page) throws JSONException{
-		String html = "<html><body><h1>test 2</h1>";
+		String html = "<html><body><h1>test 6</h1>";
 
         JSONObject head = reader.getJSONObject("data").getJSONObject("SubChapter").getJSONObject("3").getJSONObject("children").getJSONObject(page);
         html = html + head.getString("item_content_text");
@@ -295,13 +294,9 @@ class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 	        	 }
 	         }
         }
-        
         html = html + "</body></html>";
-        
         return html;
 	}
-	
-	
 }
 
 class MyAdapter extends FragmentPagerAdapter {
@@ -313,12 +308,12 @@ class MyAdapter extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int i) {
 		Fragment fragment=null;
-		if(i==0)fragment=new Summary();
-		if(i==1)fragment=new Arena();
-		if(i==2)fragment=new Game();
-		if(i==3)fragment=new Robot();
-		if(i==4)fragment=new Tournament();
-		if(i==5)fragment=new Glossary();
+		if(i==0)fragment=new Page("summary");
+		if(i==1)fragment=new Page("arena");
+		if(i==2)fragment=new Page("game");
+		if(i==3)fragment=new Page("robot");
+		if(i==4)fragment=new Page("tournament");
+		if(i==5)fragment=new Page("glossary");
 		//if(i==6)fragment=new Rules();
 		return fragment;
 	}

@@ -11,42 +11,49 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class Rules extends  Fragment  {
+@SuppressLint("ValidFragment")
+public class Page extends Fragment {
 	
-	
+	String file;
+
+	public Page(String url) {
+		file = url;
+	}
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {        
         super.onActivityCreated(savedInstanceState);
     }
 	
-	@SuppressLint("SetJavaScriptEnabled")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		
 		View myFragmentView = inflater.inflate(R.layout.webview, container, false);
 		
 		final WebView webView = (WebView) myFragmentView.findViewById(R.id.webview1);
-		String url = "http://manual.aquamorphproductions.com/Rules.php";
 		
         Functions.webViewSettings(webView);
 		Functions.zoom(webView);
 		Functions.cache(webView, getActivity());
-        
+		
         webView.setWebViewClient(new MyWebViewClient() {
         	@Override
-        	public void onPageFinished(WebView webView, String url) {
-    			Functions.javascript(webView, url);
-    			Functions.fontSize(webView);
-    		}
+        	public void onPageFinished(WebView view, String url) {
+        		//pd.dismiss();
+        		Functions.javascript(webView, url);
+        		Functions.fontSize(webView);
+        	}
+        	
         	public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         		Functions.error(webView);
             }
         });
-        webView.loadUrl(url);
+
+        webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/"+file);
         
         return myFragmentView;
 		
 
 	}
+	
 	
 
 	

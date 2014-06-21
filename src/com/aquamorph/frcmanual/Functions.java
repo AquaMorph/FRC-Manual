@@ -5,24 +5,15 @@ import java.io.FileOutputStream;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class Functions extends PreferenceActivity {
-	
-	static CheckVersion version;
-	static JSON page;
 	
 	public static void javascript(WebView view, String url) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
@@ -97,47 +88,6 @@ public class Functions extends PreferenceActivity {
 		view.loadData("<h1>Please check your internet connection or update the cache</h1>", "text/html", "utf-8");
 	}
 	
-	public static void checkUpdate(Context ctx, Activity act){
-		Log.i("test","Value: ");
-		if(isNetworkAvailable(act)==true){
-			Toast toast = Toast.makeText(ctx, "Checking for update", Toast.LENGTH_SHORT);
-			toast.show();
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-	        if(!getVersion().equals(//"1"))update(ctx);
-	        		prefs.getString("version", null)))update(ctx);
-		}
-	}
-	
-	public static void update(Context ctx){
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-		Editor editor = prefs.edit();
-		//Update Version Number
-        editor.putString("version", getVersion());
-        editor.commit();
-        //Summary Page
-        saveFile("summary",getHTML("178"),ctx);
-        saveFile("arena",getHTML("179"),ctx);
-        saveFile("game",getHTML("180"),ctx);
-        saveFile("robot",getHTML("181"),ctx);
-        saveFile("tournament",getHTML("182"),ctx);
-        saveFile("glossary",getHTML("183"),ctx);
-	}
-	
-	//Parses HTML code for a page
-	public static String getHTML(String page){
-		JSON html = new JSON(page);
-		html.fetchJSON();
-        while(html.parsingComplete){
-        	try{
-        	      Thread.sleep(100);
-        	   } catch (InterruptedException e){
-        	      e.printStackTrace();
-        	   }
-        	   continue;
-        }
-        return html.getHTML();
-	}
-	
 	//Saves string to a file
 	public static void saveFile(String name, String data, Context ctx){
 		FileOutputStream outputStream;
@@ -149,20 +99,4 @@ public class Functions extends PreferenceActivity {
           e.printStackTrace();
         }
 	}
-	
-	public static String getVersion(){
-		version = new CheckVersion();
-        version.fetchJSON();
-        while(version.parsingComplete){
-        	try{
-        	      Thread.sleep(100);
-        	   } catch (InterruptedException e){
-        	      e.printStackTrace();
-        	   }
-        	   continue;
-        }
-        return version.getVersion();
-	}
-	   
-
 }

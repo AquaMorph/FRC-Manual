@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/values/array.xml -->
+    <eat-comment />
+
+    <string-array name="fontsize">
+        <item>Large</item>
+        <item>Medium</item>
+        <item>Small</item>
+    </string-array>
+    <string-array name="fontsizevalue">
+        <item>16</item>
+        <item>12</item>
+        <item>9</item>
+    </string-array>
+    <!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/values/colors.xml -->
+    <eat-comment />
+
+    <color name="primary">#607d8b</color>
+    <color name="primary_dark">#455a64</color>
+    <color name="text_dark">#263238</color>
+    <color name="text_light">#eceff1</color>
+    <!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="action_settings">Settings</string>
+    <string name="app_name">FRC Manual</string>
+    <string name="fontsize">Font Size</string>
+    <string name="reload">Reload</string>
+    <string name="updateCache">Update the Cache</string>
+    <string name="updates">Rule Updates</string>
+    <!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+</resources>

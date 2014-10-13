@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <intent android:action="android.intent.action.VIEW"
+                    android:targetPackage="com.aquamorph.frcmanual"
+                    android:targetClass="com.aquamorph.PreferenceActivity2"/>
+    
+    <PreferenceCategory
+        android:summary="General"
+        android:title="General" >
+    	<CheckBoxPreference
+        	android:defaultValue="true"
+        	android:key="enablezoom"
+        	android:title="Enable Zoom"
+        	android:summary="Enables zoom for devices with smaller screens" />
+    	<ListPreference android:key="fontSize"
+ 	 	    android:title="@string/fontsize"
+ 		    android:entries="@array/fontsize"
+		    android:entryValues="@array/fontsize"
+    		android:defaultValue="Medium"
+    		android:summary="Sets the size of the font for the manual" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:summary="About"
+        android:title="About" >
+        <PreferenceScreen
+            android:key="preferencescreen_about"
+            android:title="Version 1.1.0"
+            android:summary="So Long, and Thanks for All the Fish" />
+        <PreferenceScreen
+            android:key="preferencescreen_about"
+            android:title="Created by Christian Colglazier"
+            android:summary="FRC Team 2059 The Hitchhikers" />      
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>
+<!-- From: file:/D:/Google%20Drive/Android%20Development/workspace/FRCManual/res/xml/preference.xml -->

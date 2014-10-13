@@ -47,15 +47,15 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case R.id.reload:
-			Log.i(TAG, "Reload Item Clicked");
+			//Log.i(TAG, "Reload Item Clicked");
 			reload();
 			return true;
 		case R.id.updateCache:
-			Log.i(TAG, "Updates Cache Item Clicked");
+			//Log.i(TAG, "Updates Cache Item Clicked");
 			updateCache();
 			return true;
 		case R.id.action_settings:
-			Log.i(TAG, "Settings Item Clicked");
+			//Log.i(TAG, "Settings Item Clicked");
 			openSettings();
 			return true;
 		default:
@@ -98,10 +98,10 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //	        Window w = getWindow(); // in Activity's onCreate() for instance
 //	        w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-	    }
+//	    }
 		checkForReset();
 	}
 	
@@ -335,10 +335,8 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 
 class MyAdapter extends FragmentPagerAdapter {
 
-	public MyAdapter(FragmentManager fm) {
-		super(fm);
-	}
-	
+	public MyAdapter(FragmentManager fm) {super(fm);k}
+
 	@Override
 	public Fragment getItem(int i) {
 		Fragment fragment=null;

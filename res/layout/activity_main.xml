@@ -3,15 +3,14 @@
     android:layout_height="match_parent"
     android:id="@+id/pager"
     android:layout_width="match_parent">
-    <android.support.v4.view.PagerTitleStrip
+    <android.support.v4.view.PagerTabStrip
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@color/primary"
+        android:textColor="@color/text_light"
         android:id="@+id/title"
-        android:layout_gravity="top"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+        android:layout_gravity="top">
         
-    </android.support.v4.view.PagerTitleStrip> 
+    </android.support.v4.view.PagerTabStrip>
 </android.support.v4.view.ViewPager>
     

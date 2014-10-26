@@ -1,9 +1,23 @@
 package com.aquamorph.frcmanual;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
+import android.net.ParseException;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,47 +29,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
-import android.net.ParseException;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class MainActivity extends FragmentActivity implements OnSharedPreferenceChangeListener {
+public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,ActionBar.TabListener {
 	
-	ViewPager viewPager=null;
-	private final String TAG = "Main Activity";
+    Tabs mAdapter;
+    ViewPager viewPager;
+
+    // Tab titles
+    private String[] tabs = {"Summary","The Arena","The Game","The Robot","The Tournament","Glossary"};
 
 	//Menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case R.id.reload:
-			//Log.i(TAG, "Reload Item Clicked");
 			reload();
 			return true;
 		case R.id.updateCache:
-			//Log.i(TAG, "Updates Cache Item Clicked");
 			updateCache();
 			return true;
 		case R.id.action_settings:
-			//Log.i(TAG, "Settings Item Clicked");
 			openSettings();
 			return true;
 		default:
@@ -76,7 +73,7 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
+	    //sets up menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.main, menu);
 	    return super.onCreateOptionsMenu(menu);
@@ -86,10 +83,28 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		viewPager = (ViewPager) findViewById(R.id.pager);
+
+        // Set up the action bar.
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setHomeButtonEnabled(false);
+
+        // Initilization
+        mAdapter = new Tabs(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(6);
-		FragmentManager fragmentManager=getSupportFragmentManager();
-		viewPager.setAdapter(new MyAdapter(fragmentManager));
+        viewPager.setAdapter(mAdapter);
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        // Adding tabs with titles
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
+        }
 		
 		new JSON().execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
 		loadPreferences();
@@ -98,10 +113,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//	        Window w = getWindow(); // in Activity's onCreate() for instance
-//	        w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//	    }
 		checkForReset();
 	}
 	
@@ -111,8 +122,7 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	public static Boolean updatecache = false;
 	public static String fontSize = null;
 	Boolean needReset = false;
-	
-	
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 	  super.onConfigurationChanged(newConfig);
@@ -165,9 +175,19 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
     		reload();
     	}
 	}
-	
-	
-	class JSON extends AsyncTask<String, Void, Boolean> {
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+    class JSON extends AsyncTask<String, Void, Boolean> {
 		
 		Boolean updating = false;
 			
@@ -331,40 +351,3 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
 	        return html;
 		}
 	}
-
-
-class MyAdapter extends FragmentPagerAdapter {
-
-	public MyAdapter(FragmentManager fm) {super(fm);k}
-
-	@Override
-	public Fragment getItem(int i) {
-		Fragment fragment=null;
-		if(i==0)fragment=new Page("summary");
-		if(i==1)fragment=new Page("arena");
-		if(i==2)fragment=new Page("game");
-		if(i==3)fragment=new Page("robot");
-		if(i==4)fragment=new Page("tournament");
-		if(i==5)fragment=new Page("glossary");
-		return fragment;
-	}
-
-	@Override
-	public int getCount() {
-		return 6;
-	}
-	
-	@Override
-	public CharSequence getPageTitle(int position) {
-		@SuppressWarnings("unused")
-		String title=new String();
-		if(position==0)return "Summary";
-		if(position==1)return "The Arena";
-		if(position==2)return "The Game";
-		if(position==3)return "The Robot";
-		if(position==4)return "The Tournament";
-		if(position==5)return "Glossary";
-		return null;
-	}
-	
-}

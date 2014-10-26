@@ -15,7 +15,10 @@ proguard-project.txt
 ic_launcher-web.png
 project.properties
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cb7cd0e6e0949d0d1a8a9c00905b95a712af457c
 # Files for the Dalvik VM
 *.dex
 
@@ -25,7 +28,10 @@ gen/
 
 # Gradle files
 .gradle/
+<<<<<<< HEAD
 gradle/
+=======
+>>>>>>> cb7cd0e6e0949d0d1a8a9c00905b95a712af457c
 build/
 
 # Local configuration file (sdk path, etc)

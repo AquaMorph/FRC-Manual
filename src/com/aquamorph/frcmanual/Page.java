@@ -3,6 +3,7 @@ package com.aquamorph.frcmanual;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import java.lang.reflect.Method;
 
 @SuppressLint("ValidFragment")
 public class Page extends Fragment {
@@ -52,7 +55,9 @@ public class Page extends Fragment {
 					String description, String failingUrl) {
 				Functions.error(webView);
 			}
+
 		});
+
 
 		webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/"
 				+ file);
@@ -70,5 +75,6 @@ public class Page extends Fragment {
 			return true;
 		}
 	}
+
 
 }

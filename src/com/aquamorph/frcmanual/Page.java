@@ -1,9 +1,7 @@
 package com.aquamorph.frcmanual;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,16 +10,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.lang.reflect.Method;
-
-@SuppressLint("ValidFragment")
 public class Page extends Fragment {
 
-	String file;
-
-	public Page(String url) {
-		file = url;
-	}
+    String file=null;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -30,13 +21,19 @@ public class Page extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    Bundle savedInstanceState) {
+        //selects tab contents
+        Bundle bundle=getArguments();
+        if(bundle.getInt("tab")==0)file="summary";
+        if(bundle.getInt("tab")==1)file="arena";
+        if(bundle.getInt("tab")==2)file="game";
+        if(bundle.getInt("tab")==3)file="robot";
+        if(bundle.getInt("tab")==4)file="tournament";
+        if(bundle.getInt("tab")==5)file="glossary";
 
-		View myFragmentView = inflater.inflate(R.layout.webview, container,
-				false);
+		View view = inflater.inflate(R.layout.webview, container,false);
 
-		final WebView webView = (WebView) myFragmentView
-				.findViewById(R.id.webview1);
+		final WebView webView = (WebView) view.findViewById(R.id.webview);
 
 		Functions.webViewSettings(webView);
 		Functions.zoom(webView);
@@ -58,15 +55,21 @@ public class Page extends Fragment {
 
 		});
 
+		webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/" + file);
 
-		webView.loadUrl("file:///data/data/com.aquamorph.frcmanual/files/"
-				+ file);
-
-		return myFragmentView;
-
+		return view;
 	}
 
-	// Redirects links to browser
+    //gets tab number for fragment
+    public static Fragment newInstance(int i) {
+        Page fragment = new Page();
+        Bundle args = new Bundle();
+        args.putInt("tab", i);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    // Redirects links to browser
 	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {

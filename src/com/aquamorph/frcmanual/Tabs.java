@@ -13,13 +13,7 @@ public class Tabs extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int index) {
         //starts fragments
-        if(index==0)return new Page("summary");
-        if(index==1)return new Page("arena");
-        if(index==2)return new Page("game");
-        if(index==3)return new Page("robot");
-        if(index==4)return new Page("tournament");
-        if(index==5)return new Page("glossary");
-        return null;
+        return Page.newInstance(index);
     }
 
     @Override

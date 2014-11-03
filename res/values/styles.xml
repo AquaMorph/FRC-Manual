@@ -5,12 +5,11 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:textColor">@color/text_dark</item>
         <item name="android:textColorPrimary">@color/text_light</item>
-        <item name="android:textAppearanceLarge">@style/PrefText</item>
-        <item name="colorAccent">@color/text_light</item>
+        <item name="colorControlNormal">@color/primary_dark</item>
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="actionBarTheme">@color/primary_dark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-    </style>
-    <style name="PrefText" parent="@android:style/TextAppearance.Large">
-        <item name="android:textColor">#ff0000</item>
     </style>
 </resources>

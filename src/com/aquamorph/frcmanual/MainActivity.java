@@ -1,15 +1,10 @@
 package com.aquamorph.frcmanual;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
-import android.net.ParseException;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +14,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,ActionBar.TabListener {
 	
@@ -46,10 +40,6 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	//public void reload() {
-	//	finish();
-	//	startActivity(getIntent());
-	//}
     public static void reload(Context anyActivity) {
         anyActivity.startActivity(new Intent(anyActivity.getApplicationContext(), MainActivity.class));
     }
@@ -103,7 +93,7 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 	@Override
 	protected void onResume() {
 		super.onResume();
-		checkForReset();
+		//checkForReset();
 	}
 	
 	//Preferences

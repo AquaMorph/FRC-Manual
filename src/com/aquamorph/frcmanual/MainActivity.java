@@ -1,10 +1,12 @@
 package com.aquamorph.frcmanual;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,20 +17,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,ActionBar.TabListener {
+public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,
+        ActionBar.TabListener {
 	
     Tabs mAdapter;
     ViewPager viewPager;
 
     // Tab titles
-    private String[] tabs = {"Summary","The Arena","The Game","The Robot","The Tournament","Glossary"};
+    private String[] tabs = {"Summary","The Arena","The Game","The Robot","The Tournament",
+            "Glossary"};
 
 	//Menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case R.id.reload:
-			reload(this);
+			reload(this, this);
 			return true;
 		case R.id.updateCache:
 			updateCache();
@@ -40,16 +44,18 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 			return super.onOptionsItemSelected(item);
 		}
 	}
-    public static void reload(Context anyActivity) {
-        anyActivity.startActivity(new Intent(anyActivity.getApplicationContext(), MainActivity.class));
+    public static void reload(Context anyActivity, Activity activity) {
+        activity.finish();
+        Intent main = new Intent(anyActivity, MainActivity.class);
+        anyActivity.startActivity(main);
     }
 	public void openSettings() {
-		Intent intent = new Intent(this, Preference.class);
+        Intent intent = new Intent(this, Preference.class);
 		startActivity(intent);
 	}
 	public void updateCache() {
 		setUpdateCache(true);
-		reload(this);
+		reload(this,this);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setHomeButtonEnabled(false);
+
 
         // Initilization
         mAdapter = new Tabs(getSupportFragmentManager());
@@ -86,14 +92,14 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
             actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
         }
 		
-		new JSON(this).execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
+		new JSON(this,this).execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
 		loadPreferences();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		//checkForReset();
+		checkForReset();
 	}
 	
 	//Preferences
@@ -115,7 +121,8 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 	}
 	
 	public void loadPreferences() {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
 	    boolean zoom = settings.getBoolean("enablezoom", false);
 	    boolean cache = settings.getBoolean("enablecache", false);
 	    String font = settings.getString("fontSize", "Large");
@@ -152,7 +159,7 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 	public void checkForReset() {
 		while (needReset==true) {
     		needReset = false;
-    		reload(this);
+    		reload(this, this);
     	}
 	}
 

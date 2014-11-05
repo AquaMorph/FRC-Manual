@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    
+
      <intent android:action="android.intent.action.VIEW"
                     android:targetPackage="com.aquamorph.frcmanual"
-                    android:targetClass="com.aquamorph.PreferenceActivity2"/>
+                    android:targetClass="com.aquamorph.Preference"/>
     
     <PreferenceCategory
         android:summary="General"
@@ -26,8 +26,8 @@
         android:title="About" >
         <PreferenceScreen
             android:key="preferencescreen_about"
-            android:title="Version 1.1.0"
-            android:summary="So Long, and Thanks for All the Fish" />
+            android:title="@string/version_text"
+            android:summary="@string/version_name" />
         <PreferenceScreen
             android:key="preferencescreen_about"
             android:title="Created by Christian Colglazier"

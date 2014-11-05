@@ -1,5 +1,6 @@
 package com.aquamorph.frcmanual;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,9 +27,11 @@ import java.util.List;
 public class JSON extends AsyncTask<String, Void, Boolean> {
 
     Context appContext;
+    Activity activity;
 
-    public JSON(Context context) {
+    public JSON(Context context, Activity parent) {
         appContext = context;
+        activity = parent;
     }
 
     Boolean updating = false;
@@ -93,7 +96,7 @@ public class JSON extends AsyncTask<String, Void, Boolean> {
             Toast.makeText(appContext, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
         if (updating == true) {
             Toast.makeText(appContext, "Reloading update", Toast.LENGTH_SHORT).show();
-            MainActivity.reload(appContext);
+            MainActivity.reload(appContext, activity);
         }
 
     }

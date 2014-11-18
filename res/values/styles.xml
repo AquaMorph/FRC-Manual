@@ -9,6 +9,7 @@
         <item name="colorControlActivated">@color/primary_dark</item>
         <item name="colorAccent">@color/primary</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="actionBarTabBarStyle">@style/Widget.Toolbar</item>
         <!--<item name="actionBarTabTextStyle">@style/Dropdown</item>-->
         <item name="actionDropDownStyle">@style/Dropdown</item>
         <!--<item name="actionBarWidgetTheme">@style/widget</item>-->
@@ -16,10 +17,12 @@
 
     <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">?attr/colorPrimary</item>
+        <item name="colorControlActivated">@color/text_light</item>
+        <item name="android:layout_height">20dp</item>
     </style>
 
     <style name="Dropdown" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:popupBackground">#fff</item>
+        <!--<item name="android:background">@color/primary</item>-->
         <item name="android:paddingLeft">32dp</item>
         <item name="android:paddingRight">32dp</item>
     </style>

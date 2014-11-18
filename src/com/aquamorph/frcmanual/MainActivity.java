@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +18,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,
         ActionBar.TabListener {
-	
+
     Tabs mAdapter;
     ViewPager viewPager;
 
@@ -73,9 +72,7 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-
-        // Initilization
+                // Initilization
         mAdapter = new Tabs(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(6);

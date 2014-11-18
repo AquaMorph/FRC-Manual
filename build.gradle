@@ -9,12 +9,12 @@ buildscript {
 apply plugin: 'android'
 
 dependencies {
-    compile "com.android.support:appcompat-v7:21.0.1"
+    compile "com.android.support:appcompat-v7:21.0.+"
 }
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.1'
+    buildToolsVersion '21.1.1'
 
     sourceSets {
         main {

@@ -1,18 +1,26 @@
 <resources>
     <style name="AppTheme" parent="AppTheme.Base"/>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:textColor">@color/text_dark</item>
         <item name="android:textColorPrimary">@color/text_light</item>
-        <item name="colorControlNormal">@color/text_light</item>
-        <item name="colorControlActivated">@color/text_light</item>
+        <item name="colorControlNormal">@color/text_dark</item>
+        <item name="colorControlActivated">@color/text_dark</item>
         <item name="colorAccent">@color/primary</item>
-        <item name="toolbarStyle">@style/Toolbar</item>
     </style>
-    <style name="Toolbar" parent="Base.Widget.AppCompat.Toolbar">
+
+    <style name="Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/text_light</item>
+        <item name="android:textColorPrimary">@color/text_light</item>
+    </style>
+
+    <style name="Tabs" parent="Base.Widget.AppCompat.Toolbar">
         <item name="android:textColor">@color/text_light</item>
         <item name="android:textColorPrimary">@color/text_light</item>
+        <item name="colorControlNormal">@color/text_light</item>
+        <item name="colorControlActivated">@color/text_light</item>
     </style>
 </resources>

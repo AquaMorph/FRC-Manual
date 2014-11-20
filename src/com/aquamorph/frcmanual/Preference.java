@@ -15,9 +15,7 @@ public class Preference extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.xml.preference);
-
         mActionBar.setTitle("Settings");
     }
 
@@ -26,7 +24,7 @@ public class Preference extends PreferenceActivity {
         ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(
                 R.layout.settings_activity, new LinearLayout(this), false);
 
-        mActionBar = (Toolbar) contentView.findViewById(R.id.action_bar);
+        mActionBar = (Toolbar) contentView.findViewById(R.id.toolbar);
         mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

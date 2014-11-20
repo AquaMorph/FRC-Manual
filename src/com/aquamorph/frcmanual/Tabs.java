@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class Tabs extends FragmentPagerAdapter {
 
+    // Tab titles
+    private String[] tabs = {"Summary","The Arena","The Game","The Robot","The Tournament",
+            "Glossary"};
+
     public Tabs(FragmentManager fm) {
         super(fm);
     }
@@ -20,6 +24,11 @@ public class Tabs extends FragmentPagerAdapter {
     public int getCount() {
         //number of tabs
         return 6;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabs[position];
     }
 
 }

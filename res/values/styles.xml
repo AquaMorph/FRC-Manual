@@ -1,30 +1,18 @@
 <resources>
     <style name="AppTheme" parent="AppTheme.Base"/>
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:textColor">@color/text_dark</item>
         <item name="android:textColorPrimary">@color/text_light</item>
-        <item name="colorControlNormal">@color/primary_dark</item>
-        <item name="colorControlActivated">@color/primary_dark</item>
-        <item name="colorAccent">@color/primary</item>
-        <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="actionBarTabBarStyle">@style/Widget.Toolbar</item>
-        <!--<item name="actionBarTabTextStyle">@style/Dropdown</item>-->
-        <item name="actionDropDownStyle">@style/Dropdown</item>
-        <!--<item name="actionBarWidgetTheme">@style/widget</item>-->
-    </style>
-
-    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="colorControlNormal">@color/text_light</item>
         <item name="colorControlActivated">@color/text_light</item>
-        <item name="android:layout_height">20dp</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
     </style>
-
-    <style name="Dropdown" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <!--<item name="android:background">@color/primary</item>-->
-        <item name="android:paddingLeft">32dp</item>
-        <item name="android:paddingRight">32dp</item>
+    <style name="Toolbar" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textColorPrimary">@color/text_light</item>
     </style>
-
 </resources>

@@ -8,41 +8,20 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.aquamorph.frcmanual.view.SlidingTabLayout;
 
-public class MainActivity extends ActionBarActivity implements OnSharedPreferenceChangeListener,
-        ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements OnSharedPreferenceChangeListener {
 
+    SlidingTabLayout mSlidingTabLayout;
     Tabs mAdapter;
     ViewPager viewPager;
+    Toolbar toolbar;
 
-    // Tab titles
-    private String[] tabs = {"Summary","The Arena","The Game","The Robot","The Tournament",
-            "Glossary"};
-
-	//Menu
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
-		case R.id.reload:
-			reload(this, this);
-			return true;
-		case R.id.updateCache:
-			updateCache();
-			return true;
-		case R.id.action_settings:
-			openSettings();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
     public static void reload(Context anyActivity, Activity activity) {
         activity.finish();
         Intent main = new Intent(anyActivity, MainActivity.class);
@@ -58,40 +37,50 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    //sets up menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main, menu);
-	    return super.onCreateOptionsMenu(menu);
+        toolbar.inflateMenu(R.menu.main);
+        return true;
 	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 
-        // Set up the action bar.
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-                // Initilization
-        mAdapter = new Tabs(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(6);
-        viewPager.setAdapter(mAdapter);
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+
+        // Set an OnMenuItemClickListener to handle menu item clicks
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.updateCache:
+                        updateCache();
+                        return true;
+                    case R.id.action_settings:
+                        openSettings();
+                        return true;
+                    default:
+                        return true;
+                }
             }
         });
 
-        // Adding tabs with titles
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name).setTabListener(this));
-        }
-		
-		new JSON(this,this).execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
-		loadPreferences();
-	}
+        // Inflate a menu to be displayed in the toolbar
+        toolbar.inflateMenu(R.menu.main);
+
+        mAdapter = new Tabs(getSupportFragmentManager());
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(6);
+        viewPager.setAdapter(mAdapter);
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.text_light));
+        mSlidingTabLayout.setViewPager(viewPager);
+
+        new JSON(this,this).execute("http://frc-manual.usfirst.org/a/GetAllItems/ManualID=3");
+        loadPreferences();
+    }
+
 	
 	@Override
 	protected void onResume() {
@@ -159,15 +148,4 @@ public class MainActivity extends ActionBarActivity implements OnSharedPreferenc
     		reload(this, this);
     	}
 	}
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 }

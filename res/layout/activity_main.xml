@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primary"
         android:theme="@style/Toolbar"
-        android:popupTheme="@style/Theme.AppCompat"/>
+        android:popupTheme="@style/Theme.AppCompat.Light"/>
 
     <com.aquamorph.frcmanual.view.SlidingTabLayout
         android:id="@+id/sliding_tabs"

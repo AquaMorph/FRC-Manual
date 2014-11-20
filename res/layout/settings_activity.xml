@@ -9,7 +9,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"/>
+        android:background="@color/primary"
+        android:theme="@style/Toolbar"
+        android:popupTheme="@style/Theme.AppCompat.Light"/>
 
     <FrameLayout
         android:id="@+id/content_wrapper"

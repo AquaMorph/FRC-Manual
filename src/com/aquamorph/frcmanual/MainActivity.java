@@ -69,7 +69,6 @@ public class MainActivity extends FragmentActivity implements OnSharedPreference
         toolbar.inflateMenu(R.menu.main);
 
         mAdapter = new Tabs(getSupportFragmentManager());
-
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(6);
         viewPager.setAdapter(mAdapter);

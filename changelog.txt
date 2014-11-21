@@ -1,7 +1,12 @@
+1.2.0 Mostly Harmless
+Updated to Material Design
+Changed Android Target to API 21 Lollipop
+Lowered minimum requirements to API 7
+
 1.1.0 So Long, and Thanks for All the Fish
 Project is now open source
 Added automatic updating
-Faster loader times
+Faster loading times
 
 1.0.4 Life, the Universe and Everything
 Added Adjustable Font Size Preference
